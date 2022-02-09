@@ -16,13 +16,11 @@ Both the JSON Rest API and Web Interface should at a minimum be able to expose a
 # Overview
 This is a simple application using the following tech stack:
 
-| Service | Directory | URI Root                        | Port   |
-| ------- | ----------| ------------------------------- | ------ |
-| API     | `/api`    | http://localhost:8000/api/keys/ | `8000` |
-| Client  | `/client` | http://localhost:3000/          | `3000` |
-| Redis   | N/A       | N/A                             | `6379` |
-
-The deployments utilize [mutli-stage `Dockerfiles`](https://docs.docker.com/develop/develop-images/multistage-build/).
+| Service | Tech              | Directory | URI Root                        | Port   |
+| ------- | ----------------- | ----------| ------------------------------- | ------ |
+| API     | Django, DRF       | `/api`    | http://localhost:8000/api/keys/ | `8000` |
+| Client  | TypeScript, React | `/client` | http://localhost:3000/          | `3000` |
+| Redis   | Redis             | N/A       | N/A                             | `6379` |
 
 The API accepts the following HTTP methods:
 | Method | URI               |
@@ -30,6 +28,8 @@ The API accepts the following HTTP methods:
 | POST   | /api/keys/        |
 | CREATE | /api/keys/<:key>/ |
 | DELETE | /api/keys/<:key>/ |
+
+The deployments utilize [mutli-stage `Dockerfiles`](https://docs.docker.com/develop/develop-images/multistage-build/).
 
 # Running the Application
 Running the application requires [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/).
