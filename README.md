@@ -26,7 +26,7 @@ The API accepts the following HTTP methods:
 | Method | URI               |
 | ------ | ----------------- |
 | POST   | /api/keys/        |
-| CREATE | /api/keys/<:key>/ |
+| GET    | /api/keys/<:key>/ |
 | DELETE | /api/keys/<:key>/ |
 
 The deployments utilize [mutli-stage `Dockerfiles`](https://docs.docker.com/develop/develop-images/multistage-build/).
@@ -41,19 +41,26 @@ With those both installed, please follow these steps:
    ```
    git clone https://github.com/cheslijones/kv-store.git
    ```
+
 2. Change into the project directory:
 
    ```
    cd kv-store
    ```
 
-3. Start-up the services:
+3. Create a `.env.dev` in the root directory with the following environment variable:
+
+   ```
+   DJANGO_SECRET_KEY="<some-random-string>"
+   ```
+
+4. Start-up the services:
 
    ```
    docker-compose up
    ```
 
-4. In a browser, navigate to [`http://localhost:3000/`](http://localhost:3000).
+5. In a browser, navigate to [`http://localhost:3000/`](http://localhost:3000).
 
 # Running Tests
 
