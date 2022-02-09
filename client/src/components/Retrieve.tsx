@@ -1,16 +1,57 @@
-// react-bootstrap imports
-import { Card, Col } from 'react-bootstrap';
+// React imports
+import { useState } from 'react';
 
+// react-bootstrap imports
+import { Button, Card, Col, Form } from 'react-bootstrap';
+
+/**
+ * Component for creating a key / value pair in Redis.
+ * @returns JSX.Element
+ */
 const Retrieve = (): JSX.Element  => {
+  // Set state related to controlled form inputs and API response
+  const [key, setKey] = useState('');
+  const [value, setValue] = useState('');
+
+  /**
+   * When the user clicks "Create" this function is called.
+   * @returns Void
+   */
+   const onSubmit = (): void => {
+
+    // POST the API 
+    fetch(`http://localhost:8000/api/keys/${key}/`) 
+      .then(response => response.json())
+      .then(response => {
+        setValue(response['value']);
+      })
+      .catch(() => {
+        console.log('Error');
+      })
+  }
+
   return (
     <Col>
-      <Card>
-        <Card.Header>Retrieve Value for a Given Key</Card.Header>
+      <Card border='primary'>
+        <Card.Header>Retrieve a Given Key</Card.Header>
         <Card.Body>
           <Card.Title>Instructions</Card.Title>
-          <Card.Text>
-            Enter the Key and click Submit to retrieve value.
-          </Card.Text>
+          <Card.Text>Enter the Key and click Retrieve to retrieve key's value.</Card.Text>
+          <Form className='d-grid gap-2'>
+            <Form.Group className='mb-3' controlId='formKey'>
+              <Form.Label>Key</Form.Label>
+              <Form.Control
+                type='text'
+                placeholder='Enter key'
+                onChange={(e) => setKey(e.target.value)}
+                value={key}
+              />
+            </Form.Group>
+            {value ? <p>Value: {value}</p> : null}
+            <Button onClick={onSubmit} variant='primary' type='button'>
+              Retrieve
+            </Button>
+          </Form>
         </Card.Body>
       </Card>
     </Col>

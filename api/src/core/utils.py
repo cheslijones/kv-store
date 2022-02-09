@@ -9,7 +9,6 @@ class RedisUtil:
     """
     Instantiates the Redis object and sets the connection params.
     """
-
     def __init__(self):
         self.redis_instance = redis.StrictRedis(
             host=settings.REDIS_HOST,

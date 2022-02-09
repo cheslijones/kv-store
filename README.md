@@ -34,3 +34,7 @@ Please don’t hesitate to ask any follow-up questions for clarification.
 docker exec -it kv-store-redis-1 sh 
 redis-cli
 ```
+
+# TODO
+- Input validation
+- Refactor components for reuse
