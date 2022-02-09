@@ -1,48 +1,74 @@
 # Third party imports
-from rest_framework import viewsets
+from rest_framework import status, viewsets
 from rest_framework.response import Response
 
 # Croner imports
-from .serializers import APISerializer
+from .serializers import KeysSerializer
 
 # Import Redis
 from .utils import RedisUtil
 
 
-class APIViewSet(viewsets.ViewSet):
+class KeysViewSet(viewsets.ViewSet):
     """
-    GET         /api/           Returns a list of key/value
-    RETRIEVE    /api/<:key>     Returns specific value from key
-    POST        /api/           Creates a new key/value
-    DELETE      /api/<:key>     Deletes a specific key
+    METHOD      URI                 DESCRIPTION    
+    GET         /api/keys/<:key>/   Returns specific value from key
+    POST        /api/keys/          Creates a new key/value
+    DELETE      /api/keys/<:key>/   Deletes a specific key
     """
-    serializer_class = APISerializer
 
     def __init__(self, *args, **kwargs):
         """
+        Instantiate the RedisUtil object.
         """
         self.redis_util = RedisUtil()
 
-    def create(self, reuqest):
+    def create(self, request):
         """
+        Creates a key/pair in the Redis store.
         """
-        return Response(self.redis_util.create())
+        # Serialize the request body
+        serializer = KeysSerializer(data=request.data)
+
+        # If valid, create the key/value in Redis; if not send error message
+        if serializer.is_valid():
+            self.redis_util.create(serializer.data)
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
 
     def destroy(self, request, pk=None):
         """
+        Destroys a single record from Redis using pk from the URI which is the key.
         """
-        pass
+        # Get value from key in URI
+        results = self.redis_util.destroy(pk)
 
-    def list(self, request):
-        """
-        """
-        return Response(self.redis_util.list())
+        # Serialzie and validate response object
+        serializer = KeysSerializer(data={'key': pk, 'value': results})
+
+        # If valid, respond with object; if not respond with error message
+        if serializer.is_valid():
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
 
     def retrieve(self, request, pk=None):
         """
+        Retrieves a single record from Redis using pk from the URI which is the key.
         """
-        pass
 
+        # Get value from key in URI
+        results = self.redis_util.retrieve(pk)
 
+        # Serialzie and validate response object
+        serializer = KeysSerializer(data={'key': pk, 'value': results})
 
-
+        # If valid, respond with object; if not respond with error message
+        if serializer.is_valid():
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)

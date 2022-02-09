@@ -7,36 +7,31 @@ import redis
 
 class RedisUtil:
     """
+    Instantiates the Redis object and sets the connection params.
     """
+
     def __init__(self):
         self.redis_instance = redis.StrictRedis(
             host=settings.REDIS_HOST,
             port=settings.REDIS_PORT
         )
 
-    def create(self):
+    def create(self, data):
         """
-        
+        Creates the key/value pair from request body.
         """
-        return self.redis_instance.set('test_key', 'test_value')
+        return self.redis_instance.set(data['key'], data['value'])
 
-    def destroy(self):
+    def destroy(self, key):
         """
-        
+        Destroys a single pair from a URI key param.
         """
-        pass
+        result = self.redis_instance.delete(key)
+        return 'Key deleted.' if result > 0 else 'Key not found.'
 
-    def list(self):
+    def retrieve(self, key):
         """
-        Returns a list of all 
+        Retreives a single pair from a URI key param.
         """
-        return self.redis_instance.keys('*')
-
-    def retrieve(self):
-        """
-        
-        """
-        pass
-
-
-
+        value = self.redis_instance.get(key)
+        return value.decode('UTF-8') if value else 'Key not found.'

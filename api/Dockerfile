@@ -52,7 +52,7 @@ EXPOSE 8000
 CMD [ "python", "src/manage.py", "runserver", "0.0.0.0:8000"]
 
 
-# 'unit-tests' stage runs our unit tests with unittest and coverage.  
+# 'Test' stage runs our unit tests with unittest and coverage.  
 FROM dev AS test
 ENV CI_TESTS='True'
 RUN coverage run --omit='src/manage.py,src/config/*,*/.venv/*,*/*__init__.py,*/tests.py,*/admin.py' src/manage.py test src && \

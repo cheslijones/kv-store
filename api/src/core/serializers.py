@@ -2,9 +2,10 @@
 from rest_framework import serializers
 
 
-class APISerializer(serializers.Serializer):
+class KeysSerializer(serializers.Serializer):
     """
-    
+    Serializers the incoming key/value pair and makesure
+    that both values are being supplied.
     """
-    key = serializers.CharField(max_length=100)
-    value = serializers.CharField(max_length=100)
+    key = serializers.CharField(required=True)
+    value = serializers.CharField(required=True)

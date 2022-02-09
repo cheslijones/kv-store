@@ -27,6 +27,8 @@ Please don’t hesitate to ask any follow-up questions for clarification.
 
 # Running the Application
 
+# Running Tests
+
 # Interacting with the Redis Container
 ```
 docker exec -it kv-store-redis-1 sh 
