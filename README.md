@@ -87,7 +87,7 @@ The application will run without dependencies installed locally given the servic
 However, if you want to develop the application, you will need to install the dependencies locally.
 
 ## API Dependencies
-*Note: This does require [`poetry`](https://python-poetry.org/docs/#installation).*
+*Note: This requires [`poetry`](https://python-poetry.org/docs/#installation).*
 
 To install the dependencies, follow these steps:
 
@@ -110,7 +110,7 @@ To install the dependencies, follow these steps:
    ```
 
 ## Client Dependencies
-*Note: This does require [`npm`]( https://nodejs.org/en/download/package-manager/).*
+*Note: This requires [`npm`]( https://nodejs.org/en/download/package-manager/).*
 
 To install the dependencies, follow these steps:
 
