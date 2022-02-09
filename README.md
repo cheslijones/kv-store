@@ -62,6 +62,51 @@ With those both installed, please follow these steps:
 
 5. In a browser, navigate to [`http://localhost:3000/`](http://localhost:3000).
 
+# Development
+The application will run without dependencies installed locally given the services are running in Docker containers.
+
+However, if you want to develop the application, you will need to install the dependencies locally.
+
+## API Dependencies
+*Note: This does require [`poetry`](https://python-poetry.org/docs/#installation).*
+
+To install the dependencies, follow these steps:
+
+1. Change into `./api`:
+
+   ```
+   cd api
+   ```  
+
+2. Install dependencies:
+
+   ```
+   poetry install
+   ```
+
+3. Start the virtual environment:
+
+   ```
+   poetry shell
+   ```
+
+## Client Dependencies
+*Note: This does require [`npm`]( https://nodejs.org/en/download/package-manager/).*
+
+To install the dependencies, follow these steps:
+
+1. Change into `./client`:
+
+   ```
+   cd client
+   ```  
+
+2. Install dependencies:
+
+   ```
+   npm install
+   ```
+
 # Running Tests
 
 # Interacting with the Redis Container
