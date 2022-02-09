@@ -60,6 +60,27 @@ With those both installed, please follow these steps:
 
 5. In a browser, navigate to [`http://localhost:3000/`](http://localhost:3000).
 
+# Running Tests
+This project utilizes [mutli-stage `Dockerfiles`](https://docs.docker.com/develop/develop-images/multistage-build/).
+
+As such, there are stages in each `Dockerfile` for running tests that can be targeted in CI / CD pipelines. Since the tests are being run in a container, dependencies are not needed locally.
+
+*Note: The commands below are from the project root.*
+
+## API Tests
+Use the following command:
+
+```
+docker build --target test -f ./api/Dockerfile ./api --secret id=mysecret,src=.env.dev --no-cache --progress=plain
+```
+
+## Client Tests
+Use the following command:
+
+```
+docker build --target test -f ./client/Dockerfile ./client --no-cache --progress=plain
+```
+
 # Development
 The application will run without dependencies installed locally given the services are running in Docker containers.
 
@@ -104,27 +125,6 @@ To install the dependencies, follow these steps:
    ```
    npm install
    ```
-
-# Running Tests
-This project utilizes [mutli-stage `Dockerfiles`](https://docs.docker.com/develop/develop-images/multistage-build/).
-
-As such, there are stages in each `Dockerfile` for running tests that can be targeted in CI / CD pipelines. Since the tests are being run in a container, dependencies are not needed locally.
-
-*Note: The commands below are from the project root.*
-
-## API Tests
-Use the following command:
-
-```
-docker build --target test -f ./api/Dockerfile ./api --secret id=mysecret,src=.env.dev --no-cache --progress=plain
-```
-
-## Client Tests
-Use the following command:
-
-```
-docker build --target test -f ./client/Dockerfile ./client --no-cache --progress=plain
-```
 
 # Interacting with the Redis Container
 If you need to interact directly with the Redis container, you can access the Redis container's `redis-cli` using the following command:
