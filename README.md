@@ -117,7 +117,8 @@ redis-cli
 ```
 
 # TODO
-- Input validation
-- Refactor components for reuse
-- Build validation and CI
+- Input validation in React forms
+- Refactor React components for reuse
+- Protect `main` branch and require PR to merge
+- PR build validation and CI
 - Production stages in `Dockerfile`
