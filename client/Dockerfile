@@ -9,7 +9,7 @@ COPY ./package-lock.json ./package.json ./
 RUN npm ci --production
 
 
-# 'development' stage installs all dev deps and can be used to develop code.
+# 'dev' stage installs all dev deps and can be used to develop code.
 FROM builder-base as dev
 WORKDIR /app
 COPY . . 
@@ -18,6 +18,6 @@ EXPOSE 3000
 CMD ["npm", "start"]
 
 
-# 'unit-tests' stage 
+# 'test' stage 
 FROM dev AS test
 RUN npm test -- --coverage

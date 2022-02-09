@@ -29,8 +29,6 @@ The API accepts the following HTTP methods:
 | GET    | /api/keys/<:key>/ |
 | DELETE | /api/keys/<:key>/ |
 
-The deployments utilize [mutli-stage `Dockerfiles`](https://docs.docker.com/develop/develop-images/multistage-build/).
-
 # Running the Application
 Running the application requires [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/).
 
@@ -108,6 +106,25 @@ To install the dependencies, follow these steps:
    ```
 
 # Running Tests
+This project utilizes [mutli-stage `Dockerfiles`](https://docs.docker.com/develop/develop-images/multistage-build/).
+
+As such, there are stages in each `Dockerfile` for running tests that can be targeted in CI / CD pipelines. Since the tests are being run in a container, dependencies are not needed locally.
+
+*Note: The commands below are from the project root.*
+
+## API Tests
+Use the following command:
+
+```
+docker build --target test -f ./api/Dockerfile ./api --secret id=mysecret,src=.env.dev --no-cache --progress=plain
+```
+
+## Client Tests
+Use the following command:
+
+```
+docker build --target test -f ./client/Dockerfile ./client --no-cache --progress=plain
+```
 
 # Interacting with the Redis Container
 If you need to interact directly with the Redis container, you can access the Redis container's `redis-cli` using the following command:
@@ -121,4 +138,7 @@ redis-cli
 - Refactor React components for reuse
 - Protect `main` branch and require PR to merge
 - PR build validation and CI
+- Add commands for running tests to `docker-compose.yml`
+- Deploy test containers along side the development containers
+- Extract test reports from containers
 - Production stages in `Dockerfile`

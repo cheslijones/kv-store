@@ -55,5 +55,7 @@ CMD [ "python", "src/manage.py", "runserver", "0.0.0.0:8000"]
 # 'Test' stage runs our unit tests with unittest and coverage.  
 FROM dev AS test
 ENV CI_TESTS='True'
-RUN coverage run --omit='src/manage.py,src/config/*,*/.venv/*,*/*__init__.py,*/tests.py,*/admin.py' src/manage.py test src && \
+RUN --mount=type=secret,id=mysecret \ 
+    DJANGO_SECRET_KEY=$(grep 'DJANGO_SECRET_KEY=' /run/secrets/mysecret | cut -d '=' -f2) && export DJANGO_SECRET_KEY && \
+    coverage run --omit='src/manage.py,src/config/*,*/.venv/*,*/*__init__.py,*/tests.py,*/admin.py' src/manage.py test src  && \
     coverage report
