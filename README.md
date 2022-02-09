@@ -74,11 +74,30 @@ Use the following command:
 docker build --target test -f ./api/Dockerfile ./api --secret id=mysecret,src=.env.dev --no-cache --progress=plain
 ```
 
+Alternatively, if you have the development dependencies installed (see Development section below), you can run the tests outside of a container using:
+
+```
+cd api
+coverage run --omit='src/manage.py,src/config/*,*/.venv/*,*/*__init__.py,*/tests.py,*/admin.py' src/manage.py test src && coverage report
+```
+*Note: You will likely get a `KeyError: 'DJANGO_SECRET_KEY'` error. To resolve, run the following:*
+
+```
+export DJANGO_SECRET_KEY="<some-random-string>"
+```
+
 ## Client Tests
 Use the following command:
 
 ```
 docker build --target test -f ./client/Dockerfile ./client --no-cache --progress=plain
+```
+
+Alternatively, if you have the development dependencies installed (see Development section below), you can run the tests outside of a container using:
+
+```
+cd client
+npm test -- --coverage --watchAll
 ```
 
 # Development

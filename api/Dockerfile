@@ -31,8 +31,7 @@ COPY ./poetry.lock ./pyproject.toml ./
 RUN poetry install --no-dev
 
 
-# 'development' stage installs all dev deps and can be used to develop code.
-# For example using docker-compose to mount local volume under /app
+# 'dev' stage installs all dev deps and can be used to develop code.
 FROM python-base as dev
 
 # Copying poetry and venv into image
