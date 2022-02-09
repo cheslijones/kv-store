@@ -19,15 +19,18 @@ const Retrieve = (): JSX.Element  => {
    */
    const onSubmit = (): void => {
 
-    // POST the API 
-    fetch(`http://localhost:8000/api/keys/${key}/`) 
-      .then(response => response.json())
-      .then(response => {
-        setValue(response['value']);
-      })
-      .catch(() => {
-        console.log('Error');
-      })
+    // Allow submit only if key is populated
+    if (key) {
+      // POST the API 
+      fetch(`http://localhost:8000/api/keys/${key}/`) 
+        .then(response => response.json())
+        .then(response => {
+          setValue(response['value']);
+        })
+        .catch(() => {
+          console.log('Error');
+        })
+    }
   }
 
   return (

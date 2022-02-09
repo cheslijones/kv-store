@@ -20,24 +20,27 @@ const Create = (): JSX.Element => {
    */
   const onSubmit = (): void => {
     // Set request body
-    const body = { key: key, value: value}
+    const body = { key: key, value: value };
 
-    // POST the request body to the API 
-    fetch('http://localhost:8000/api/keys/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    }) 
-      .then(response => response.json())
-      .then(response => {
-        setApiResponse(true);
+    // Submit only if both fields are populated
+    if (key && value) {
+      // POST the request body to the API
+      fetch('http://localhost:8000/api/keys/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
       })
-      .catch(() => {
-        console.log('Error');
-      })
-  }
+        .then((response) => response.json())
+        .then((response) => {
+          setApiResponse(true);
+        })
+        .catch(() => {
+          console.log('Error');
+        });
+    }
+  };
 
   return (
     <Col>
@@ -54,6 +57,7 @@ const Create = (): JSX.Element => {
                 placeholder='Enter key'
                 onChange={(e) => setKey(e.target.value)}
                 value={key}
+                required
               />
             </Form.Group>
             <Form.Group className='mb-3' controlId='formValue'>
@@ -63,6 +67,7 @@ const Create = (): JSX.Element => {
                 placeholder='Enter value'
                 onChange={(e) => setValue(e.target.value)}
                 value={value}
+                required
               />
             </Form.Group>
             {apiResponse ? <p>Key successfully created!</p> : null}
