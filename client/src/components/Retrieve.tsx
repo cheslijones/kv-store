@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { Button, Card, Col, Form } from 'react-bootstrap';
 
 /**
- * Component for creating a key / value pair in Redis.
+ * Component for retrieving a key / value pair in Redis.
  * @returns JSX.Element
  */
 const Retrieve = (): JSX.Element  => {
@@ -14,7 +14,7 @@ const Retrieve = (): JSX.Element  => {
   const [value, setValue] = useState('');
 
   /**
-   * When the user clicks "Create" this function is called.
+   * When the user clicks "Retrieve" this function is called.
    * @returns Void
    */
    const onSubmit = (): void => {

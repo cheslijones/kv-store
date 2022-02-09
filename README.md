@@ -13,23 +13,52 @@ The following functionality should be implemented:
 
 Both the JSON Rest API and Web Interface should at a minimum be able to expose and implement these three functions.
 
-You can write this in whichever languages you choose, however Go and any React-based framework are preferred. The final result should be two separate applications that can be run independently of each other.
-
-Please upload the code to a publicly accessible GitHub, GitLab or other public code repository account.  A README file should be provided, briefly documenting what you are delivering. Like our own code, we expect testing instructions: whether it’s an automated test framework, or simple manual steps.
-
-To help set expectations, we believe you should aim to take no more than 4 hours on this task.
-
-We understand that you have other responsibilities, so if you think you’ll need more than 5 business days, just let us know when you expect to send a reply.
-
-Please don’t hesitate to ask any follow-up questions for clarification.
-
 # Overview
+This is a simple application using the following tech stack:
+
+| Service | Directory | URI Root                        | Port   |
+| ------- | ----------| ------------------------------- | ------ |
+| API     | `/api`    | http://localhost:8000/api/keys/ | `8000` |
+| Client  | `/client` | http://localhost:3000/          | `3000` |
+| Redis   | N/A       | N/A                             | `6379` |
+
+The deployments utilize [mutli-stage `Dockerfiles`](https://docs.docker.com/develop/develop-images/multistage-build/).
+
+The API accepts the following HTTP methods:
+| Method | URI               |
+| ------ | ----------------- |
+| POST   | /api/keys/        |
+| CREATE | /api/keys/<:key>/ |
+| DELETE | /api/keys/<:key>/ |
 
 # Running the Application
+Running the application requires [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/).
+
+With those both installed, please follow these steps:
+
+1. Clone the Repo:
+
+   ```
+   git clone https://github.com/cheslijones/kv-store.git
+   ```
+2. Change into the project directory:
+
+   ```
+   cd kv-store
+   ```
+
+3. Start-up the services:
+
+   ```
+   docker-compose up
+   ```
+
+4. In a browser, navigate to [`http://localhost:3000/`](http://localhost:3000).
 
 # Running Tests
 
 # Interacting with the Redis Container
+If you need to interact directly with the Redis container, you can access the Redis container's `redis-cli` using the following command:
 ```
 docker exec -it kv-store-redis-1 sh 
 redis-cli
@@ -38,3 +67,5 @@ redis-cli
 # TODO
 - Input validation
 - Refactor components for reuse
+- Build validation and CI
+- Production stages in `Dockerfile`
