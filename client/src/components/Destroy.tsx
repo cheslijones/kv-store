@@ -26,7 +26,7 @@ const Destroy = (): JSX.Element => {
       })
         .then((response) => response.json())
         .then((response) => {
-          setValue(response['value']);
+          setValue(response['destroyed']);
         })
         .catch(() => {
           console.log('Error');
