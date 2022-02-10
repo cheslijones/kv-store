@@ -27,13 +27,13 @@ class KeysViewSet(viewsets.ViewSet):
         """
         Creates a key/pair in the Redis store.
         """
+        print(request)
         # Serialize the request body
         serializer = KeysSerializer(data=request.data)
 
         # If valid, create the key/value in Redis; if not send error message
         if serializer.is_valid():
-            self.redis_util.create(serializer.data)
-            return Response(serializer.data)
+            return Response(self.redis_util.create(serializer.data))
         else:
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
