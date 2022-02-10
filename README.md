@@ -156,9 +156,11 @@ redis-cli
 ## React
 - Input validation in React forms
 - Refactor React components for reuse
+- Mocks need to be improved 
 
 ## Django
 - Test case for Redis not being able to create the key
+- Test cases for `utils.py`
 
 ## DevOps
 - Protect `main` branch and require PR to merge
