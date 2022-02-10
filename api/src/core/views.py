@@ -27,16 +27,21 @@ class KeysViewSet(viewsets.ViewSet):
         """
         Creates a key/pair in the Redis store.
         """
-        print(request)
         # Serialize the request body
         serializer = KeysSerializer(data=request.data)
 
         # If valid, create the key/value in Redis; if not send error message
         if serializer.is_valid():
-            return Response(self.redis_util.create(serializer.data))
+            response = self.redis_util.create(serializer.data)
+            return Response(
+                {'created': response},
+                status=status.HTTP_201_CREATED
+            )
         else:
-            return Response(serializer.errors,
-                            status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                serializer.errors,
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
     def destroy(self, request, pk=None):
         """
@@ -50,10 +55,15 @@ class KeysViewSet(viewsets.ViewSet):
 
         # If valid, respond with object; if not respond with error message
         if serializer.is_valid():
-            return Response(serializer.data)
+            return Response(
+                {'destroyed': results}, 
+                status=status.HTTP_200_OK
+            )
         else:
-            return Response(serializer.errors,
-                            status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                serializer.errors,
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
     def retrieve(self, request, pk=None):
         """

@@ -153,11 +153,18 @@ redis-cli
 ```
 
 # TODO
+## React
 - Input validation in React forms
 - Refactor React components for reuse
+
+## Django
+- Test case for Redis not being able to create the key
+
+## DevOps
 - Protect `main` branch and require PR to merge
 - PR build validation and CI
+- Production stages in `Dockerfile`
 - Add commands for running tests to `docker-compose.yml`
 - Deploy test containers along side the development containers
 - Extract test reports from containers
-- Production stages in `Dockerfile`
+
